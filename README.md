@@ -44,3 +44,4 @@
                       visited.add(neighbor)
               # increment level after we have processed all nodes of the level
               level += 1
+<img width="635" alt="image" src="https://github.com/user-attachments/assets/d874de1c-8af1-4239-a308-6c38e15172c2" />
