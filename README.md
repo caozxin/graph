@@ -10,3 +10,37 @@
 (Even one node is disconnected, the whole graph is disconnected.)
 
 <img width="611" alt="image" src="https://github.com/user-attachments/assets/0f7e7e74-30c7-49d7-ac42-01874e297b8c" />
+
+<img width="635" alt="image" src="https://github.com/user-attachments/assets/2f4095e4-a3ea-4b53-a6c2-d2d1bfae0622" />
+
+      from collections import deque
+
+      def bfs(root):
+          queue = deque([root])
+          visited = set([root])
+          while len(queue) > 0:
+              node = queue.popleft()
+              for neighbor in get_neighbors(node):
+                  if neighbor in visited:
+                      continue
+                  queue.append(neighbor)
+                  visited.add(neighbor)
+<img width="634" alt="image" src="https://github.com/user-attachments/assets/9c72e9a0-9e4e-4eec-a793-2434587d5384" />
+
+      from collections import deque
+
+      def bfs(root):
+          queue = deque([root])
+          visited = set([root])
+          level = 0
+          while len(queue) > 0:
+              n = len(queue) # get # of nodes in the current level
+              for _ in range(n):
+                  node = queue.popleft()
+                  for neighbor in get_neighbors(node):
+                      if neighbor in visited:
+                          continue
+                      queue.append(neighbor)
+                      visited.add(neighbor)
+              # increment level after we have processed all nodes of the level
+              level += 1
