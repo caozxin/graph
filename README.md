@@ -45,3 +45,9 @@
               # increment level after we have processed all nodes of the level
               level += 1
 <img width="635" alt="image" src="https://github.com/user-attachments/assets/d874de1c-8af1-4239-a308-6c38e15172c2" />
+
+<img width="458" alt="image" src="https://github.com/user-attachments/assets/ade3b7bf-e1c7-4a92-9079-022d064a8e83" />
+
+<img width="628" alt="image" src="https://github.com/user-attachments/assets/af485a91-0898-4807-b0a2-172eec2717e2" />
+
+<img width="642" alt="image" src="https://github.com/user-attachments/assets/2d057cf4-8357-4f3e-8f90-19440be7cd84" />
