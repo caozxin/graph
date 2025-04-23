@@ -45,6 +45,8 @@
               # increment level after we have processed all nodes of the level
               level += 1
 ### Example of Exploring Shortest Path between two nodes using BFS:
+<img width="559" alt="image" src="https://github.com/user-attachments/assets/e60d3bc9-7cd8-4cb7-8172-db22fdd86296" />
+
             from collections import deque
             from typing import List
             
