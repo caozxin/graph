@@ -44,6 +44,34 @@
                       visited.add(neighbor)
               # increment level after we have processed all nodes of the level
               level += 1
+### Example of Exploring Shortest Path between two nodes using BFS:
+            from collections import deque
+            from typing import List
+            
+            def shortest_path(graph: List[List[int]], a: int, b: int) -> int:
+                def get_neighbors(node: int):
+                    return graph[node]
+            
+                # BFS template
+                def bfs(root: int, target: int):
+                    queue = deque([root])
+                    visited = {root}
+                    level = 0
+                    while len(queue) > 0:
+                        n = len(queue)
+                        for _ in range(n):
+                            node = queue.popleft()
+                            if node == target:
+                                return level
+                            for neighbor in get_neighbors(node):
+                                if neighbor in visited:
+                                    continue
+                                queue.append(neighbor)
+                                visited.add(neighbor)
+                        level += 1
+                    return level
+            
+                return bfs(a, b)
 <img width="635" alt="image" src="https://github.com/user-attachments/assets/d874de1c-8af1-4239-a308-6c38e15172c2" />
 
 <img width="458" alt="image" src="https://github.com/user-attachments/assets/ade3b7bf-e1c7-4a92-9079-022d064a8e83" />
