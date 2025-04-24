@@ -5,7 +5,8 @@ class Solution:
         #none handling:
         if not image:
             return [] # this should be matching return format. 
-
+        targeted_color = image[sr][sc]
+        print(targeted_color, type(targeted_color))
         num_rows, num_cols = len(image), len(image[0]) # please note matrix is always square.
         # print(num_rows, num_cols)
 
@@ -24,19 +25,25 @@ class Solution:
         def bfs(starting_node):
             queue = deque([starting_node])
             visited = set([starting_node])
+
             while len(queue) > 0:
                 node = queue.popleft()
+                # print(node)
+                # print(node, get_neighbors(node))
+                i,j = node[0], node[1]
+                if image[i][j] == targeted_color:
+                    # print("need to change", node, image[i][j], "into", color)
+                    image[i][j] = color
+                else:
+                    break
+                # print(visited)
+                # exit()
                 for neighbor in get_neighbors(node):
                     if neighbor in visited:
                         continue
-
                     queue.append(neighbor)
                     visited.add(neighbor)
-        print(get_neighbors((1,1)))
-        for i in range(num_rows):
-            for j in range(num_cols):
-                curr_coord = (i,j)
-                print(curr_coord)
-                print(get_neighbors(curr_coord))
-                
-                exit()
+
+        print(get_neighbors((sr,sc)))
+        bfs((sr,sc))
+        return image
