@@ -1,3 +1,5 @@
+### my version with bfs:
+
 from collections import deque
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
@@ -53,3 +55,39 @@ class Solution:
                     continue
         # print("num_islands", num_islands)
         return num_islands
+
+### best version with iterative dfs:
+from typing import List
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid:
+            return 0
+
+        rows, cols = len(grid), len(grid[0])
+        num_islands = 0
+
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == "1":
+                    num_islands += 1
+                    stack = [(r, c)]
+                    grid[r][c] = "0"  # mark as visited immediately
+
+                    while stack:
+                        x, y = stack.pop()
+                        if x > 0 and grid[x-1][y] == "1":
+                            stack.append((x-1, y))
+                            grid[x-1][y] = "0"
+                        if x < rows-1 and grid[x+1][y] == "1":
+                            stack.append((x+1, y))
+                            grid[x+1][y] = "0"
+                        if y > 0 and grid[x][y-1] == "1":
+                            stack.append((x, y-1))
+                            grid[x][y-1] = "0"
+                        if y < cols-1 and grid[x][y+1] == "1":
+                            stack.append((x, y+1))
+                            grid[x][y+1] = "0"
+
+        return num_islands
+
