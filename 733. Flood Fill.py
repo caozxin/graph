@@ -34,17 +34,13 @@ class Solution:
                 if image[i][j] == targeted_color:
                     # print("need to change", node, image[i][j], "into", color)
                     image[i][j] = color
-                else:
-                    break
-                # print(visited)
-                # exit()
-                for neighbor in get_neighbors(node):
-                    if neighbor in visited:
-                        continue
-                    queue.append(neighbor)
-                    visited.add(neighbor)
+
+                    for neighbor in get_neighbors(node):
+                        if neighbor in visited:
+                            continue
+                        queue.append(neighbor)
+                        visited.add(neighbor)
 
         print(get_neighbors((sr,sc)))
         bfs((sr,sc))
         return image
-#testing
