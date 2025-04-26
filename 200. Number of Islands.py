@@ -39,8 +39,8 @@ class Solution:
                     queue.append(neighbor)
                     visited.add(neighbor)
                     grid[neighbor[0]][neighbor[1]] = "checked"
-            print("visited", visited)
-            print(grid)
+            # print("visited", visited)
+            # print(grid)
             
 
         # bfs((0,0))
@@ -51,5 +51,5 @@ class Solution:
                     num_islands += 1
                 else:
                     continue
-        print("num_islands", num_islands)
+        # print("num_islands", num_islands)
         return num_islands
