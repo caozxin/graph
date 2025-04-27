@@ -64,3 +64,40 @@ class Solution:
             return min(dfs(abs(r-2), abs(c-1)), dfs(abs(r-1), abs(c-2))) + 1
 
         return dfs(x, y)
+
+
+### Best bfs version with bidirectional bfs:
+from collections import deque
+
+class Solution:
+    def minKnightMoves(self, x: int, y: int) -> int:
+        if x == 0 and y == 0:
+            return 0
+
+        x, y = abs(x), abs(y)  # symmetry: always work in first quadrant
+        directions = [(-2,-1), (-2,1), (-1,-2), (-1,2), (1,-2), (1,2), (2,-1), (2,1)]
+
+        # Bidirectional BFS
+        start_queue = deque([(0, 0)])
+        end_queue = deque([(x, y)])
+        visited_start = {(0, 0)}
+        visited_end = {(x, y)}
+        steps = 0
+
+        while start_queue and end_queue:
+            steps += 1
+            if len(start_queue) > len(end_queue):
+                start_queue, end_queue = end_queue, start_queue
+                visited_start, visited_end = visited_end, visited_start
+
+            for _ in range(len(start_queue)):
+                r, c = start_queue.popleft()
+                for dr, dc in directions:
+                    nr, nc = r + dr, c + dc
+                    if (nr, nc) in visited_start:
+                        continue
+                    if (nr, nc) in visited_end:
+                        return steps
+                    if nr >= -2 and nc >= -2:  # don't explore too far into negatives
+                        start_queue.append((nr, nc))
+                        visited_start.add((nr, nc))
