@@ -42,3 +42,25 @@ class Solution:
                 steps += 1 # steps here is similar to level.
 
         return bfs((0,0))
+
+
+### Crazy Fast version with dfs:
+from functools import lru_cache
+
+class Solution:
+    def minKnightMoves(self, x: int, y: int) -> int:
+        x, y = abs(x), abs(y)
+
+        @lru_cache(None)
+        def dfs(r, c):
+            if (r, c) == (0, 0):
+                return 0
+            if (r, c) == (1, 0) or (r, c) == (0, 1):
+                return 3
+            if (r, c) == (1, 1):
+                return 2
+
+            # Always move closer to (0,0)
+            return min(dfs(abs(r-2), abs(c-1)), dfs(abs(r-1), abs(c-2))) + 1
+
+        return dfs(x, y)
