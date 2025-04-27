@@ -3,6 +3,8 @@ from collections import deque
 class Solution:
     def minKnightMoves(self, x: int, y: int) -> int:
 
+        x, y = abs(x), abs(y)  # symmetry: always work in first quadrant
+
         if not x and not y:
             return 0
 
@@ -29,12 +31,13 @@ class Solution:
                     # print("node", node)
                     if node == (x, y):
                         return steps
+                    
                     for each_move in knight_moves(node):
                         if each_move in visited:
                             continue
-
-                        queue.append(each_move)
-                        visited.add(each_move)
+                        if each_move[0] >= -2 and each_move[1] >= -2: #bound x,y to [0, max(x,y)+2] to avoid exploring crazy negatives.
+                            queue.append(each_move)
+                            visited.add(each_move)
 
                 steps += 1 # steps here is similar to level.
 
