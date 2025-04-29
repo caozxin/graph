@@ -35,7 +35,7 @@
           level = 0
           while len(queue) > 0:
               n = len(queue) # get # of nodes in the current level
-              for _ in range(n):
+              for _ in range(n): # here is to track the level during traversal in bfs. 
                   node = queue.popleft()
                   for neighbor in get_neighbors(node):
                       if neighbor in visited:
@@ -62,7 +62,7 @@
                     level = 0
                     while len(queue) > 0:
                         n = len(queue)
-                        for _ in range(n):
+                        for _ in range(n): # here is to track the level during traversal in bfs. 
                             node = queue.popleft()
                             if node == target:
                                 return level
@@ -82,7 +82,7 @@
                 delta_row = [-1, 0, 1, 0]
                 delta_col = [0, 1, 0, -1]
                 res = []
-                for i in range(len(delta_row)):
+                for i in range(len(delta_row)): # we do not have outer layer of for _ in range(n) here, b/c we do not need to track the level/distance. 
                     neighbor_row = row + delta_row[i]
                     neighbor_col = col + delta_col[i]
                     if 0 <= neighbor_row < num_rows and 0 <= neighbor_col < num_cols:
