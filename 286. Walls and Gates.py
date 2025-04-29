@@ -61,3 +61,44 @@ class Solution:
             for j in range(num_cols):
                 if rooms[i][j] != 0 and rooms[i][j] != -1:
                     bfs((i,j))
+
+
+### best version using bfs template:
+from collections import deque
+
+class Solution:
+    def wallsAndGates(self, rooms: List[List[int]]) -> None:
+        if not rooms:
+            return
+
+        num_rows, num_cols = len(rooms), len(rooms[0])
+
+        def get_neighbors(coord):
+            row, col = coord
+            delta_row = [-1, 0, 1, 0]
+            delta_col = [0, 1, 0, -1]
+            res = []
+            for i in range(4):
+                neighbor_row = row + delta_row[i]
+                neighbor_col = col + delta_col[i]
+                if 0 <= neighbor_row < num_rows and 0 <= neighbor_col < num_cols:
+                    if rooms[neighbor_row][neighbor_col] == 2147483647: # if the neighbor is empty space.
+                        res.append((neighbor_row, neighbor_col))
+            return res
+
+        def bfs(queue):
+            #noticed there is no visited() here. 
+            while queue:
+                node = queue.popleft()
+                for neighbor in get_neighbors(node):
+                    rooms[neighbor[0]][neighbor[1]] = rooms[node[0]][node[1]] + 1 #Each step into the dungeon will add one more level to the BFS tree. The idea here is the distance from the nearest gate to an empty space must be the shortest path. This way each empty space is only in the queue once.
+                    queue.append(neighbor)
+
+        # Instead of BFS from each empty room, BFS from all gates --> multiple sourced BFS. 
+        queue = deque()
+        for i in range(num_rows):
+            for j in range(num_cols):
+                if rooms[i][j] == 0:
+                    queue.append((i, j))
+
+        bfs(queue)
