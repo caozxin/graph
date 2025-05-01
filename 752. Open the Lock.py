@@ -7,7 +7,7 @@ class Solution:
         if "0000" in deadends:
             return -1
 
-        next_digit = {**{str(i): str(i + 1) for i in range(9)}, "9": "0"}
+        next_digit = {**{str(i): str(i + 1) for i in range(9)}, "9": "0"} # this is how you draw the graph
         prev_digit = {e: n for n, e in next_digit.items()}
 
     # def num_steps(target_combo: str, trapped_combos: list[str]) -> int:
@@ -26,6 +26,7 @@ class Solution:
                 if new_combo not in trapped_combo_set and new_combo not in steps:
                     bfs_queue.append(new_combo)
                     steps[new_combo] = steps[top] + 1
+                    # print("steps", steps)
                     if new_combo == target_combo:
                         return steps[new_combo]
                 new_combo = top[0:i] + prev_digit[top[i]] + top[i + 1 :]
