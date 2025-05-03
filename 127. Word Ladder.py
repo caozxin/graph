@@ -95,3 +95,51 @@ class Solution:
 
         return bfs(endWord, beginWord)
 
+### best improved version based on original:
+from collections import deque
+from typing import List
+
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        if beginWord not in wordList:
+            wordList.append(beginWord)
+        if endWord not in wordList:
+            return 0
+
+        wordSet = set(wordList)    #remove dup
+        queue = deque([endWord])
+        visited = set([endWord])
+        level = 0
+        n = len(endWord)
+
+        def get_neighbors(word):
+            neighbors = []
+            for i in range(n):
+                for c in 'abcdefghijklmnopqrstuvwxyz':
+                    if c != word[i]:
+                        next_word = word[:i] + c + word[i+1:]
+                        if next_word in wordSet:
+                            neighbors.append(next_word)
+            return neighbors
+
+        def bfs (root, target):
+            queue = deque([(root, 1)]) # this keeps track of the step counts
+            visited = set([root])
+
+            while len(queue) > 0:
+                
+                for _ in range(len(queue)):
+                    node, level = queue.popleft()
+                    # print(level, node)
+                    if node == target:
+                        return level
+                    for neighbor in get_neighbors(node):
+                        if neighbor in visited:
+                            continue
+                        queue.append((neighbor, level + 1))
+                        visited.add(neighbor) # the same node should  not be visited twice in all paths.
+
+            return 0 # if we do not find any path, return 0 at the end. 
+
+
+        return bfs(endWord, beginWord)
