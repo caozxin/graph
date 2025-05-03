@@ -112,7 +112,7 @@ class Solution:
         level = 0
         n = len(endWord)
 
-        def get_neighbors(word):
+        def get_neighbors(word): # get this right is the key here. 
             neighbors = []
             for i in range(n):
                 for c in 'abcdefghijklmnopqrstuvwxyz':
@@ -121,6 +121,18 @@ class Solution:
                         if next_word in wordSet:
                             neighbors.append(next_word)
             return neighbors
+            
+        # def get_neighbors(word: str) -> list[str]: #--> this works, but not better. 
+        #     neighbors = []
+        #     for i in range(len(word)):
+        #         # replace word[i] with every ascii letter
+        #         for c in ascii_letters:
+        #             next_word = word[:i] + c + word[i + 1 :]
+        #             if next_word in wordSet:
+        #                 neighbors.append(next_word)
+        #                 wordSet.remove(next_word)  # mark next_word as visited
+        #     return neighbors
+
 
         def bfs (root, target):
             queue = deque([(root, 1)]) # this keeps track of the step counts
