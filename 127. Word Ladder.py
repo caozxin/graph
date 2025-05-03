@@ -13,7 +13,7 @@ class Solution:
         # if "c" + "g" in "cog":
         #     print("true!")
 
-        def get_neighbors(node):
+        def get_neighbors(node): # get this right is the key here. 
             res = []
             for i in range(n):
                 for a_word in wordList:
