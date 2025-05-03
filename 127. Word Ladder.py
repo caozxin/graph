@@ -1,6 +1,7 @@
 from collections import deque
 from typing import List
 
+### my  not working version:
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         if endWord not in wordList:
@@ -51,3 +52,46 @@ class Solution:
         wordList.remove(endWord)
         # get_neighbors(endWord)
         return bfs(endWord, beginWord)
+
+
+#improved version:
+from collections import deque
+from typing import List
+
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        if beginWord not in wordList:
+            wordList.append(beginWord)
+        if endWord not in wordList:
+            return 0
+        
+        n = len(endWord)
+        wordSet = set(wordList)
+
+        def get_neighbors(word):
+            neighbors = []
+            for i in range(n):
+                for c in 'abcdefghijklmnopqrstuvwxyz':
+                    if c != word[i]:
+                        next_word = word[:i] + c + word[i+1:]
+                        if next_word in wordSet:
+                            neighbors.append(next_word)
+            return neighbors
+
+        def bfs(start, target):
+            queue = deque([(start, 1)])
+            visited = set([start])
+
+            while queue:
+                current_word, level = queue.popleft()
+                if current_word == target:
+                    return level
+
+                for neighbor in get_neighbors(current_word):
+                    if neighbor not in visited:
+                        visited.add(neighbor)
+                        queue.append((neighbor, level + 1))
+            return 0
+
+        return bfs(endWord, beginWord)
+
