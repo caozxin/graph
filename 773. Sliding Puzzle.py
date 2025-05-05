@@ -1,3 +1,5 @@
+### my not working version:
+
 from collections import deque
 from typing import List
 
@@ -62,3 +64,62 @@ class Solution:
             for j in range(num_cols):
                 if board[i][j] == 0:
                     bfs((i,j))
+
+
+### improved version:
+from collections import deque
+from typing import List
+import copy
+
+class Solution:
+    def slidingPuzzle(self, board: List[List[int]]) -> int:
+        if not board:
+            return -1
+
+        goal_board = [[1, 2, 3], [4, 5, 0]]
+        num_rows, num_cols = len(board), len(board[0])
+
+        def serialize(board):
+            return tuple(tuple(row) for row in board)
+
+        def get_neighbors(coord):
+            row, col = coord
+            directions = [(-1,0), (1,0), (0,-1), (0,1)]
+            res = []
+            for dr, dc in directions:
+                nr, nc = row + dr, col + dc
+                if 0 <= nr < num_rows and 0 <= nc < num_cols:
+                    res.append((nr, nc))
+            return res
+
+        def bfs(starting_zero):
+            initial_state = serialize(board)
+            queue = deque([(starting_zero, 0, board)])
+            visited = set([initial_state])
+
+            while queue:
+                zero_pos, level, current_board = queue.popleft()
+
+                if current_board == goal_board:
+                    return level
+
+                for neighbor in get_neighbors(zero_pos):
+                    # Swap zero with the neighbor
+                    new_board = [row[:] for row in current_board]  # deep copy
+                    r1, c1 = zero_pos
+                    r2, c2 = neighbor
+                    new_board[r1][c1], new_board[r2][c2] = new_board[r2][c2], new_board[r1][c1]
+
+                    serialized = serialize(new_board)
+                    if serialized not in visited:
+                        visited.add(serialized)
+                        queue.append(((r2, c2), level + 1, new_board))
+
+            return -1
+
+        for i in range(num_rows):
+            for j in range(num_cols):
+                if board[i][j] == 0:
+                    return bfs((i, j))
+
+        return -1
