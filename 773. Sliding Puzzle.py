@@ -123,3 +123,44 @@ class Solution:
                     return bfs((i, j))
 
         return -1
+
+
+### best version:
+from collections import deque
+
+class Solution:
+    def slidingPuzzle(self, board):
+        # this mainly improve the time complexity by:
+        # 1) Use a string instead of a 2D list. 
+        # 2) 2. Precompute valid swaps (neighbors)
+        start = ''.join(str(num) for row in board for num in row)
+        goal = "123450"
+        
+        neighbors = {
+            0: [1, 3],
+            1: [0, 2, 4],
+            2: [1, 5],
+            3: [0, 4],
+            4: [1, 3, 5],
+            5: [2, 4]
+        }
+        
+        queue = deque([(start, 0)])
+        visited = set([start])
+        
+        while queue:
+            state, moves = queue.popleft()
+            if state == goal:
+                return moves
+            
+            zero_index = state.index('0')
+            for neighbor in neighbors[zero_index]:
+                new_state = list(state)
+                new_state[zero_index], new_state[neighbor] = new_state[neighbor], new_state[zero_index]
+                new_str = ''.join(new_state)
+                
+                if new_str not in visited:
+                    visited.add(new_str)
+                    queue.append((new_str, moves + 1))
+        
+        return -1
