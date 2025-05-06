@@ -105,9 +105,42 @@
                         visited.add(neighbor)
 <img width="635" alt="image" src="https://github.com/user-attachments/assets/d874de1c-8af1-4239-a308-6c38e15172c2" />
 
-<img width="458" alt="image" src="https://github.com/user-attachments/assets/ade3b7bf-e1c7-4a92-9079-022d064a8e83" />
 
+
+### Topological Sort vs BFS:
+<img width="620" alt="image" src="https://github.com/user-attachments/assets/70892055-0697-4ac8-839a-07f7239855ee" />
+<img width="649" alt="image" src="https://github.com/user-attachments/assets/195789ac-3091-46e6-8832-e09a679e301c" />
+
+      from collections import deque
+
+      def find_indegree(graph):
+          indegree = { node: 0 for node in graph }  # dict
+          for node in graph:
+              for neighbor in graph[node]:
+                  indegree[neighbor] += 1
+          return indegree
+      
+      
+      def topo_sort(graph):
+          res = []
+          q = deque()
+          indegree = find_indegree(graph)
+          for node in indegree:
+              if indegree[node] == 0:
+                  q.append(node)
+          while len(q) > 0:
+              node = q.popleft()
+              res.append(node)
+              for neighbor in graph[node]:
+                  indegree[neighbor] -= 1
+                  if indegree[neighbor] == 0:
+                      q.append(neighbor)
+          return res if len(graph) == len(res) else None
+    
+### DFS on Graph:
+<img width="458" alt="image" src="https://github.com/user-attachments/assets/ade3b7bf-e1c7-4a92-9079-022d064a8e83" />
 <img width="628" alt="image" src="https://github.com/user-attachments/assets/af485a91-0898-4807-b0a2-172eec2717e2" />
+
 
 <img width="602" alt="image" src="https://github.com/user-attachments/assets/f0110fb9-a2f5-4fad-86e4-f444fb5cfa99" />
 
