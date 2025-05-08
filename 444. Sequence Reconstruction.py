@@ -16,18 +16,27 @@ class Solution:
             res = []
             queue = deque()
             indegree = find_indegree(graph)
-            print(indegree)
+            print("indegree", indegree)
+            print("graph", graph)
             for node in indegree:
                 queue.append(node)
 
             while len(queue) > 0:
                 node = queue.popleft()
+                print()
                 res.append(node)
+                #validation:
+                # print(node, len(graph[node]), indegree[node])
+
+                if len(graph[node])<= 0 and indegree[node] == 0:
+                    return False
+
+                print('graph[node]', graph[node])
                 for neighbor in graph[node]:
                     indegree[node] -= 1
                     if indegree[neighbor] == 0:
                         queue.append(neighbor)
-            print(res)
+                print('res', res)
             # return res if len(graph) == len(res) else None
 
         # contruct the graph: for each_num in nums, it should be dict[each_num] = [list of its outgoing edges]
@@ -38,6 +47,6 @@ class Solution:
                 graph[each[i]] =  graph[each[i]]  + each[i+1:]
                 
         # print(graph, find_indegree(graph))
-        topo_sort(graph)
+        return topo_sort(graph)
 
         
