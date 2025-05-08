@@ -87,18 +87,11 @@ class Solution:
                     indegree[neighbor] -= 1
                     if indegree[neighbor] == 0:
                         queue.append(neighbor)
-            return res == nums
+            return res == nums # return true only if nums is the only shortest supersequence.
 
-        # contruct the graph: for each_num in nums, it should be dict[each_num] = [list of its outgoing edges]
-        # graph: dict[str, list[str]] = {t: [] for t in nums}
-        # # print(graph)
-        # for each in sequences:
-        #     for i in range(len(each)):
-        #         graph[each[i]] =  graph[each[i]]  + each[i+1:]
-                
-                # construct the graph
         graph = {num: [] for num in nums}
-        for seq in sequences:
+        print(graph)
+        for seq in sequences: # Always only add edges between consecutive elements.
             for i in range(len(seq) - 1):
                 if seq[i+1] not in graph[seq[i]]:
                     graph[seq[i]].append(seq[i+1])
@@ -107,6 +100,8 @@ class Solution:
                     graph[num] = []
 
         return topo_sort(graph)
+
+        
 
         
 
