@@ -14,19 +14,23 @@ class Solution:
             res = []
             queue = deque()
             indegree = find_indegree(graph)
-
+            print(indegree)
             for node in indegree:
                 if indegree[node] == 0:
                     queue.append(node)
-
+            print(len(res) , queue)
+            if len(queue) == 0:
+                return False
             while len(queue) > 0:
                 node = queue.popleft()
+                print(node)
                 res.append(node)
 
                 for neighbor in graph[node]:
                     indegree[neighbor] -= 1
                     if indegree[neighbor] == 0:
                         queue.append(neighbor)
+            print(len(res) , queue, numCourses)
 
             if len(res) > numCourses:
                 return False
