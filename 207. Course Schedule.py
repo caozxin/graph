@@ -52,3 +52,49 @@ class Solution:
 
         # print(graph)
         return topo_sort(graph)
+
+
+### improved working version:
+from collections import deque
+from typing import List
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        
+        def find_indegree(graph):
+            indegree = {node: 0 for node in graph}
+            for node in graph:
+                for neighbor in graph[node]:
+                    indegree[neighbor] += 1
+            return indegree
+
+        def topo_sort(graph):
+            res = []
+            queue = deque()
+            indegree = find_indegree(graph)
+            # print(indegree)
+            for node in indegree:
+                if indegree[node] == 0:
+                    queue.append(node)
+            # print(len(res) , queue)
+            visited_count = 0
+            while len(queue) > 0:
+                node = queue.popleft()
+                visited_count += 1
+                print(node)
+                res.append(node)
+
+                for neighbor in graph[node]:
+                    indegree[neighbor] -= 1
+                    if indegree[neighbor] == 0:
+                        queue.append(neighbor)
+            # print(len(res) , queue, numCourses)
+
+            return visited_count == numCourses
+
+        graph = {i: [] for i in range(numCourses)}
+        # print(graph)
+        for course, prereq in prerequisites:
+            graph[prereq].append(course)
+
+        # print(graph)
+        return topo_sort(graph)
