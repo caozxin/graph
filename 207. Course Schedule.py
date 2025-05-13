@@ -1,7 +1,7 @@
 from collections import deque
 from typing import List
 class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool: #testing
         
         def find_indegree(graph):
             indegree = {node: 0 for node in graph}
