@@ -156,6 +156,8 @@ A Minimum Spanning Tree is a tree with overall minimum weight generated from a g
 
 ![image](https://github.com/user-attachments/assets/420e58b1-472c-4adf-8d17-c902abef315d)
 
+![image](https://github.com/user-attachments/assets/6d0d8749-62f1-456a-bd48-61cc2a9f897c)
+
       class Edge:
           def __init__(self, weight, a, b):
               self.weight = weight
