@@ -154,4 +154,28 @@
 Definition: 
 A Minimum Spanning Tree is a tree with overall minimum weight generated from a graph that includes every node in the original graph. You will recall that a tree is defined as a graph with n - 1 edges, n nodes, as well as no cycles throughout the tree. We can essentially think of it as generating the tree with smallest total weight by selecting edges from a graph.
 
+![image](https://github.com/user-attachments/assets/420e58b1-472c-4adf-8d17-c902abef315d)
 
+      class Edge:
+          def __init__(self, weight, a, b):
+              self.weight = weight
+              self.a = a
+              self.b = b
+      def cmp():
+          def compare(x, y):
+              return x.weight < y.weight
+          return compare
+      def minimum_spanning_tree(n : int, edges : List[edge]) -> int:
+          # sort list, make sure to define custom comparator class cmp to sort edge based on weight from lowest to highest
+          edges.sort(key = cmp)
+          dsu = UnionFind()
+          ret, cnt = 0, 0
+          for edge in edges:
+            # check if edges belong to same set before merging and adding edge to mst
+            if dsu.find(edge.a) != dsu.find(edge.b):
+              dsu.union(edge.a, edge.b)
+              ret = ret + edge.weight
+              cnt += 1
+              if cnt == n - 1:
+                break
+          return ret
