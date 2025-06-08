@@ -150,3 +150,8 @@
 <img width="682" alt="image" src="https://github.com/user-attachments/assets/979514d5-843a-453b-b6e5-70dcf3e45cd8" />
 
 ### Minimum Spanning Tree!
+
+Definition: 
+A Minimum Spanning Tree is a tree with overall minimum weight generated from a graph that includes every node in the original graph. You will recall that a tree is defined as a graph with n - 1 edges, n nodes, as well as no cycles throughout the tree. We can essentially think of it as generating the tree with smallest total weight by selecting edges from a graph.
+
+
