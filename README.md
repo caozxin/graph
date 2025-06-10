@@ -181,3 +181,5 @@ A Minimum Spanning Tree is a tree with overall minimum weight generated from a g
               if cnt == n - 1:
                 break
           return ret
+          
+![image](https://github.com/user-attachments/assets/b11b8f12-f115-47c7-90b3-8d71551418ab)
